@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Function to print the top 10 hot posts for a given subreddit."""
+"""Function to print hot posts on a given Reddit subreddit."""
 import requests
 
 
@@ -13,8 +13,7 @@ def top_ten(subreddit):
     }
     response = requests.get(url, headers=headers, allow_redirects=False)
     if response.status_code == 404:
-    print(None)
-    return
-    posts = response.json().get("data", {}).get("children", [])
-    for post in posts:
-        print(post.get("data", {}).get("title"))
+        print(None)
+        return
+    results = response.json().get("data")
+    [print(c.get("data").get("title")) for c in results.get("children")]
